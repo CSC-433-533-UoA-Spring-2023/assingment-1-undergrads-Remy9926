@@ -103,16 +103,23 @@ var upload = function () {
                     let heightDist = samplePixel[1] - minHeight;
                     let widthScale = width / widthDiff;
                     let heightScale = height / heightDiff;
+                    let scalingMatrix = GetScalingMatrix(widthScale, heightScale);
 
-                    samplePixel[0] = (widthDist + (widthDist / widthDiff)) * widthScale;
-                    samplePixel[1] = (heightDist + (heightDist / heightDiff)) * heightScale;
+                    samplePixel[0] = (widthDist + (widthDist / widthDiff));
+                    samplePixel[1] = (heightDist + (heightDist / heightDiff));
+                    samplePixel = MultiplyMatrixVector(scalingMatrix, samplePixel);
+                    
+                    // if you replace the top 3 lines with these bottom 2 lines,
+                    // the scaling is off, but the image will contain the entire bunny
+                    // with no crop out
+                    // samplePixel[0] = widthDist * (widthDist / widthDiff);
+                    // samplePixel[1] = heightDist * (heightDist / heightDiff);
 
                     samplePixel[0] = Math.floor(samplePixel[0]);
                     samplePixel[1] = Math.floor(samplePixel[1]);
                     
                     setPixelColor(newCtx, samplePixel, i);
                 }
-
                 ctx.putImageData(newCtx, canvas.width/2 - width/2, canvas.height/2 - height/2);
                 showMatrix(transformationMatrix);
             }
