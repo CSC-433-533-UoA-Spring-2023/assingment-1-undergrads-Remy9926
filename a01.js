@@ -17,11 +17,6 @@ var height = 0;
 // The image data
 var ppm_img_data;
 
-// store data about the number of matrix rotations there are 
-var currentMatrix = 0;
-var numDegrees = 6;
-var matrices = []
-
 //Function to process upload
 var upload = function () {
     if (input.files.length > 0) {
@@ -45,6 +40,11 @@ var upload = function () {
             // *** The code below is for the template to show you how to use matrices and update pixels on the canvas.
             // *** Modify/remove the following code and implement animation
             
+            // store data about the number of matrix rotations there are 
+            var currentMatrix = 0;
+            var numDegrees = 6;
+            var matrices = []
+
             // function to store the rotation matrices for every 60 degree rotation
             function getMatrices() {
                 let translationMatrix = GetTranslationMatrix(0, height);
@@ -64,7 +64,7 @@ var upload = function () {
                     matrices.push(transformationMatrix);
                 }
             }
-            
+
             function rotateImage() {
                 let newCtx = ctx.createImageData(width, height);
                 let transformationMatrix = matrices[currentMatrix];
