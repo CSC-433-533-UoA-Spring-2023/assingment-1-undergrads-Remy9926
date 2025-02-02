@@ -69,18 +69,50 @@ var upload = function () {
                 let transformationMatrix = matrices[currentMatrix];
                 currentMatrix = (currentMatrix + 1) % matrices.length;
                 
+                var maxWidth = -2147483648;
+                var minWidth = 2147483641;
+                var maxHeight = -2147483648;
+                var minHeight = 2147483641;
+
                 for (var i = 0; i < ppm_img_data.data.length; i += 4) {
                     var pixel = [Math.floor(i / 4) % width,
                                  Math.floor(i / 4) / width, 1];
             
                     var samplePixel = MultiplyMatrixVector(transformationMatrix, pixel);
                     //samplePixel = MultiplyMatrixVector(GetTranslationMatrix(0, -height), samplePixel);
+                    maxWidth = Math.max(samplePixel[0], maxWidth);
+                    minWidth = Math.min(samplePixel[0], minWidth);
+                    maxHeight = Math.max(samplePixel[1], maxHeight);
+                    minHeight = Math.min(samplePixel[1], minHeight);
 
                     samplePixel[0] = Math.floor(samplePixel[0]);
                     samplePixel[1] = Math.floor(samplePixel[1]);
             
                     setPixelColor(newCtx, samplePixel, i);
                 }
+                
+                var widthDiff = maxWidth - minWidth;
+                var heightDiff = maxHeight - minHeight;
+
+                for (var i = 0; i < ppm_img_data.data.length; i += 4) {
+                    var pixel = [Math.floor(i / 4) % width,
+                        Math.floor(i / 4) / width, 1];
+
+                    var samplePixel = MultiplyMatrixVector(transformationMatrix, pixel);
+                    let widthDist = samplePixel[0] - minWidth;
+                    let heightDist = samplePixel[1] - minHeight;
+                    let widthScale = width / widthDiff;
+                    let heightScale = height / heightDiff;
+
+                    samplePixel[0] = (widthDist + (widthDist / widthDiff)) * widthScale;
+                    samplePixel[1] = (heightDist + (heightDist / heightDiff)) * heightScale;
+
+                    samplePixel[0] = Math.floor(samplePixel[0]);
+                    samplePixel[1] = Math.floor(samplePixel[1]);
+                    
+                    setPixelColor(newCtx, samplePixel, i);
+                }
+
                 ctx.putImageData(newCtx, canvas.width/2 - width/2, canvas.height/2 - height/2);
                 showMatrix(transformationMatrix);
             }
