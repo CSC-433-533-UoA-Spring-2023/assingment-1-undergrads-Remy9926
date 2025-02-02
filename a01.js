@@ -22,25 +22,6 @@ var currentMatrix = 0;
 var numDegrees = 6;
 var matrices = []
 
-function getMatrices() {
-    let translationMatrix = GetTranslationMatrix(0, height);
-    matrices.push(GetRotationMatrix(0));
-    
-    for (let i = 1; i < 3; i++) {
-        // how many degrees to split the rotations up into
-        angle = (360 / numDegrees) * i;
-        let rotationMatrix = GetRotationMatrix(angle);
-        matrices.push(rotationMatrix);
-    }
-
-    for (let i = 3; i < numDegrees; i++) {
-        angle = (360 / numDegrees) * i;
-        let rotationMatrix = GetRotationMatrix(angle);
-        let transformationMatrix = MultiplyMatrixMatrix(translationMatrix, rotationMatrix);
-        matrices.push(transformationMatrix);
-    }
-}
-
 //Function to process upload
 var upload = function () {
     if (input.files.length > 0) {
@@ -63,7 +44,27 @@ var upload = function () {
             
             // *** The code below is for the template to show you how to use matrices and update pixels on the canvas.
             // *** Modify/remove the following code and implement animation
+            
+            // function to store the rotation matrices for every 60 degree rotation
+            function getMatrices() {
+                let translationMatrix = GetTranslationMatrix(0, height);
+                matrices.push(GetRotationMatrix(0));
+                
+                for (let i = 1; i < 3; i++) {
+                    // how many degrees to split the rotations up into
+                    angle = (360 / numDegrees) * i;
+                    let rotationMatrix = GetRotationMatrix(angle);
+                    matrices.push(rotationMatrix);
+                }
 
+                for (let i = 3; i < numDegrees; i++) {
+                    angle = (360 / numDegrees) * i;
+                    let rotationMatrix = GetRotationMatrix(angle);
+                    let transformationMatrix = MultiplyMatrixMatrix(translationMatrix, rotationMatrix);
+                    matrices.push(transformationMatrix);
+                }
+            }
+            
             function rotateImage() {
                 let newCtx = ctx.createImageData(width, height);
                 let transformationMatrix = matrices[currentMatrix];
