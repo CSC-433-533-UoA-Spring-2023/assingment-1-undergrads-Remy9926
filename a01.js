@@ -26,8 +26,14 @@ function getMatrices() {
     let translationMatrix = GetTranslationMatrix(0, height);
     matrices.push(GetRotationMatrix(0));
     
-    for (let i = 1; i < numDegrees; i++) {
+    for (let i = 1; i < 3; i++) {
         // how many degrees to split the rotations up into
+        angle = (360 / numDegrees) * i;
+        let rotationMatrix = GetRotationMatrix(angle);
+        matrices.push(rotationMatrix);
+    }
+
+    for (let i = 3; i < numDegrees; i++) {
         angle = (360 / numDegrees) * i;
         let rotationMatrix = GetRotationMatrix(angle);
         let transformationMatrix = MultiplyMatrixMatrix(translationMatrix, rotationMatrix);
@@ -79,7 +85,7 @@ var upload = function () {
                 showMatrix(transformationMatrix);
             }
             getMatrices();
-            window.setInterval(rotateImage, 1000);
+            window.setInterval(rotateImage, 500);
         }
     }
 }
