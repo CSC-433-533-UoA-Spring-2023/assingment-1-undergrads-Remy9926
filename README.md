@@ -5,7 +5,7 @@ Date: February 10, 2025
 Executing program: To execute this program, you can open the HTML file inside of your browser. There you will see a
 HMTL page with an input element that says **_Choose File_**. You will then select a PPM image to upload and it will display the PPM image. The browser will automatically constantly rotate your PPM image for you and display it to you.
 
-Description: Upon uploading a PPM image, your PPM image will be rotated continuously by 60 degrees counterclockwise every second while also displaying the output matrix that causes the rotation.
+Description: Upon uploading a PPM image, your PPM image will be rotated continuously by 60 degrees counterclockwise every half-second while also displaying the output matrix that causes the rotation.
 
 Included files:
 
