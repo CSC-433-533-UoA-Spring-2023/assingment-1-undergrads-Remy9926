@@ -18,6 +18,7 @@ Included files (**PLEASE ADD/UPDATE THIS LIST**):
 - a01.js -- a sample javascript file for functionality with the image uploading, and a method to parse PPM images
 - MathUtilities.js -- some math functions that you can use and extend yourself. It contains matrix manipulations
 - bunny.ppm -- a test image
+- pic1.ppm -- another test image that you can use to test the rotations on the page
 
 **PLEASE PROVIDE ANY ATTRIBUTION HERE**
 
