@@ -7,6 +7,8 @@ HMTL page with an input element that says **_Choose File_**. You will then selec
 
 Description: Upon uploading a PPM image, your PPM image will be rotated continuously by 60 degrees counterclockwise every half-second while also displaying the output matrix that causes the rotation.
 
+Errata: I have included in my rotateImage() function some comments that include code that modify the pixels. If you un-comment those lines of code out instead, and comment out the 3 lines above it, then you will get a rotation that maintains the entire image inside the canvas to some extent, but then the scaling is off.
+
 Included files:
 
 - index.html -- a sample html file with a canvas
