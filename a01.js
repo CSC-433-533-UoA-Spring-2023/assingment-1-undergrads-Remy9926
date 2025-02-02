@@ -47,21 +47,10 @@ var upload = function () {
 
             // function to store the rotation matrices for every 60 degree rotation
             function getMatrices() {
-                let translationMatrix = GetTranslationMatrix(0, height);
-                matrices.push(GetRotationMatrix(0));
-                
-                for (let i = 1; i < 3; i++) {
-                    // how many degrees to split the rotations up into
-                    angle = (360 / numDegrees) * i;
+                for (let i = 0; i < numDegrees; i++)  {
+                    let angle = (360 / numDegrees) * i;
                     let rotationMatrix = GetRotationMatrix(angle);
                     matrices.push(rotationMatrix);
-                }
-
-                for (let i = 3; i < numDegrees; i++) {
-                    angle = (360 / numDegrees) * i;
-                    let rotationMatrix = GetRotationMatrix(angle);
-                    let transformationMatrix = MultiplyMatrixMatrix(translationMatrix, rotationMatrix);
-                    matrices.push(transformationMatrix);
                 }
             }
 
@@ -80,7 +69,6 @@ var upload = function () {
                                  Math.floor(i / 4) / width, 1];
             
                     var samplePixel = MultiplyMatrixVector(transformationMatrix, pixel);
-                    //samplePixel = MultiplyMatrixVector(GetTranslationMatrix(0, -height), samplePixel);
                     maxWidth = Math.max(samplePixel[0], maxWidth);
                     minWidth = Math.min(samplePixel[0], minWidth);
                     maxHeight = Math.max(samplePixel[1], maxHeight);
@@ -104,12 +92,12 @@ var upload = function () {
                     let heightDist = samplePixel[1] - minHeight;
                     let widthScale = width / widthDiff;
                     let heightScale = height / heightDiff;
-                    let scalingMatrix = GetScalingMatrix(widthScale, heightScale);
+                    let scalingMatrix = GetScalingMatrix(widthScale, heightScale);                    
 
                     samplePixel[0] = (widthDist + (widthDist / widthDiff));
                     samplePixel[1] = (heightDist + (heightDist / heightDiff));
                     samplePixel = MultiplyMatrixVector(scalingMatrix, samplePixel);
-                    
+
                     // if you replace the top 3 lines with these bottom 2 lines,
                     // the scaling is off, but the image will contain the entire bunny
                     // with no crop out
