@@ -2,20 +2,15 @@ Author: Ethan Huang [ehuang68@arizona.edu]
 Course: Undergrad 433
 Date: February 10, 2025
 
-**PLEASE UPDATE THIS README TO INCLUDE:**
+Executing program: To execute this program, you can open the HTML file inside of your browser. There you will see a
+HMTL page with an input element that says **_Choose File_**. You will then select a PPM image to upload and it will display the PPM image. The browser will automatically constantly rotate your PPM image for you and display it to you.
 
-- a text description of how to run your program,
-- document any idiosyncrasies, behaviors, or bugs of note that you want us to be aware of when grading, and
-- any other comments that you feel are relevant.
+Description: Upon uploading a PPM image, your PPM image will be rotated continuously by 60 degrees counterclockwise every second while also displaying the output matrix that causes the rotation.
 
-Executing program:
-
-Description:
-
-Included files (**PLEASE ADD/UPDATE THIS LIST**):
+Included files:
 
 - index.html -- a sample html file with a canvas
-- a01.js -- a sample javascript file for functionality with the image uploading, and a method to parse PPM images
+- a01.js -- a javascript file for functionality with the image uploading, a method to parse PPM images, and a method to rotate the image by multiples of 60 degrees every second
 - MathUtilities.js -- some math functions that you can use and extend yourself. It contains matrix manipulations
 - bunny.ppm -- a test image
 - pic1.ppm -- another test image that you can use to test the rotations on the page
